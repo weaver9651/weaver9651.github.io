@@ -14,6 +14,7 @@
 				<a class="post-link" href="{{ post.url | relative_url }}">
 					{{ post.title | escape }}
 				</a>
+				<a class="post-link" style="color:darkcyan" href="{{ post.url | relative_url }}#disqus_thread"></a>
 				{%- if site.show_excerpts -%}{{ post.excerpt }}{%- endif -%}
 			</li>
 		  	{%- endfor -%}

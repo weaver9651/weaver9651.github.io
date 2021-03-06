@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "우분투 20.04 Realtek Ethernet 문제 해결"
-date: 2020-01-10 16:20:00 +0900
+date: 2021-01-10 16:20:00 +0900
 categories:
 - troubleshooting
 - linux

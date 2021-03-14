@@ -26,7 +26,7 @@ select
 # 후략
 ```
 - 'price 값 중에서 NULL이 있으면 NULL을 출력하고 NULL이 없으면 최댓값을 출력하라'는 의미
-- 끝에 `AS joinAt`이 없으면 column 이름이 생기지 않음
+- 끝에 `AS price`이 없으면 column 이름이 CASE 절로 길게 생김
 
 # `GROUP BY`와 `HAVING`
 `GROUP BY`는 결과를 묶어준다. 보통 다음과 같이 원하는 분류별로 개수를 셀 때 많이 활용되는 것 같다.

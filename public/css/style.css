@@ -337,3 +337,15 @@ footer {
 		display: none;
 	}
 }
+
+/* table */
+table {
+	width: 1%;
+	border: 1px solid #444444;
+	border-collapse: collapse;
+}
+th, td {
+	border: 1px solid #444444;
+	width: 1%;
+	white-space: nowrap;
+}

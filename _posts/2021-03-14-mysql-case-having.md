@@ -5,7 +5,6 @@ date: 2021-03-14 15:57:00 +0900
 categories:
   - mysql
 comments: true
-changefreq: daily
 ---
 # 개요
 MySQL의 `CASE`, `GROUP BY`, `HAVING`에 대해서 간략하게 정리하고 복잡했던 예시를 하나 소개한다.

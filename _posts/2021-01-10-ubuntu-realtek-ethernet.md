@@ -6,7 +6,6 @@ categories:
 - troubleshooting
 - linux
 comments: true
-changefreq: daily
 ---
 # 발단
 얼마전 새로 산 컴퓨터에 Windows와 Ubuntu 20.04를 설치했는데 Ubuntu에서 이더넷 드라이버를 아예 찾지 못하는 문제가 발생했다. 구글에 검색을 해보면 Realtek 홈페이지에서 해당 드라이버를 설치하라고 나오는데 dependency 문제로 여러 패키지를 설치해야 한다. 문제는 인터넷이 안되기 때문에 해당 패키지들도 다른 컴퓨터에서 수동으로 검색하여 다운받아 설치해야하는데 여간 어려운 일이 아니다.

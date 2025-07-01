@@ -1,0 +1,1220 @@
+---
+layout: archive
+title: "bill-calculator"
+permalink: /bill
+---
+
+<style>
+/* iOS-style CSS Variables */
+:root {
+  --ios-blue: #007AFF;
+  --ios-green: #34C759;
+  --ios-red: #FF3B30;
+  --ios-gray: #F2F2F7;
+  --ios-dark-gray: #1C1C1E;
+  --ios-light-gray: #8E8E93;
+}
+
+/* Base Styles */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f8f9fa;
+}
+
+.app-container {
+  max-width: 428px;
+  margin: 0 auto;
+  background: white;
+  min-height: 100vh;
+  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+/* Header */
+.header {
+  background: white;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 24px;
+  font-weight: bold;
+  color: var(--ios-dark-gray);
+  margin: 0;
+}
+
+.clear-btn {
+  background: none;
+  border: none;
+  color: var(--ios-red);
+  font-weight: 600;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.clear-btn:hover {
+  background: rgba(255, 59, 48, 0.1);
+}
+
+/* Main Content */
+.main-content {
+  padding: 16px;
+  padding-bottom: 120px;
+}
+
+/* Card Styles */
+.card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.card h2, .card h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ios-dark-gray);
+  margin: 0 0 16px 0;
+}
+
+/* Tax/Tip Settings */
+.settings-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.input-group {
+  position: relative;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ios-dark-gray);
+  margin-bottom: 8px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 16px;
+  padding-right: 32px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  background: var(--ios-gray);
+  font-size: 16px;
+  font-weight: 500;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: var(--ios-blue);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.input-suffix {
+  position: absolute;
+  right: 12px;
+  top: 36px;
+  color: var(--ios-light-gray);
+  font-size: 14px;
+}
+
+/* Person Card */
+.person-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.person-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.person-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+}
+
+.avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 600;
+}
+
+.avatar-blue { background: var(--ios-blue); }
+.avatar-green { background: var(--ios-green); }
+.avatar-purple { background: #AF52DE; }
+.avatar-orange { background: #FF9500; }
+.avatar-pink { background: #FF2D92; }
+.avatar-indigo { background: #5856D6; }
+
+.name-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 0;
+  outline: none;
+}
+
+.remove-btn {
+  background: none;
+  border: none;
+  color: var(--ios-red);
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.remove-btn:hover {
+  background: rgba(255, 59, 48, 0.1);
+}
+
+.food-input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.food-input-group .input-prefix {
+  position: absolute;
+  left: 12px;
+  top: 36px;
+  color: var(--ios-light-gray);
+  font-size: 16px;
+}
+
+.food-input-group input {
+  padding-left: 32px;
+}
+
+/* Calculation Summary */
+.calculation-summary {
+  background: var(--ios-gray);
+  border-radius: 8px;
+  padding: 12px;
+}
+
+.calc-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.calc-row:last-child {
+  margin-bottom: 0;
+}
+
+.calc-row.total {
+  font-size: 18px;
+  font-weight: 600;
+  padding-top: 8px;
+  border-top: 1px solid #d0d0d0;
+  margin-top: 8px;
+}
+
+.calc-row .amount {
+  font-weight: 500;
+}
+
+.calc-row.total .amount {
+  color: var(--ios-blue);
+}
+
+/* Total Summary */
+.total-summary {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 24px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.summary-row:last-child {
+  margin-bottom: 0;
+  font-size: 20px;
+  font-weight: bold;
+  padding-top: 12px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.summary-row:last-child .amount {
+  color: var(--ios-blue);
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 48px 16px;
+}
+
+.empty-icon {
+  width: 64px;
+  height: 64px;
+  background: #f0f0f0;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+  color: var(--ios-light-gray);
+  font-size: 24px;
+}
+
+.empty-state h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--ios-dark-gray);
+  margin: 0 0 8px 0;
+}
+
+.empty-state p {
+  color: var(--ios-light-gray);
+  margin: 0 0 24px 0;
+}
+
+/* Fixed Bottom Button */
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  max-width: 428px;
+  background: white;
+  border-top: 1px solid #e0e0e0;
+  padding: 16px;
+}
+
+.add-person-btn {
+  width: 100%;
+  background: var(--ios-blue);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 122, 255, 0.3);
+}
+
+.add-person-btn:hover {
+  background: #0056b3;
+}
+
+.add-person-btn:active {
+  transform: scale(0.98);
+}
+
+/* Tab Navigation */
+.tab-nav {
+  display: flex;
+  background: var(--ios-gray);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 16px;
+}
+
+.tab-button {
+  flex: 1;
+  background: none;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: var(--ios-dark-gray);
+}
+
+.tab-button.active {
+  background: white;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  color: var(--ios-blue);
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Split Calculator Styles */
+.split-calculator {
+  padding: 16px 0;
+}
+
+.total-amount-section {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.amount-input-group {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+.amount-input-group input {
+  width: 100%;
+  padding: 16px 20px;
+  padding-left: 40px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  background: var(--ios-gray);
+  font-size: 20px;
+  font-weight: 600;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.amount-input-group input:focus {
+  outline: none;
+  border-color: var(--ios-blue);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.1);
+}
+
+.amount-input-group .currency-symbol {
+  position: absolute;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ios-light-gray);
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.split-person-card {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.split-person-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.split-person-inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.split-result {
+  background: var(--ios-gray);
+  border-radius: 8px;
+  padding: 12px;
+  text-align: center;
+}
+
+.split-result .final-amount {
+  font-size: 18px;
+  font-weight: bold;
+  color: var(--ios-blue);
+}
+
+.split-summary {
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: 16px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.split-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
+.split-summary-row:last-child {
+  margin-bottom: 0;
+  font-size: 18px;
+  font-weight: bold;
+  padding-top: 8px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.split-summary-row:last-child .amount {
+  color: var(--ios-blue);
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .app-container {
+    max-width: 100%;
+  }
+  
+  .bottom-actions {
+    max-width: 100%;
+  }
+  
+  .split-person-inputs {
+    grid-template-columns: 1fr;
+  }
+}
+</style>
+
+<div class="app-container">
+  <!-- Header -->
+  <header class="header">
+    <h1>Bill Calculator</h1>
+    <button class="clear-btn" onclick="clearAll()">
+      🗑️ Clear All
+    </button>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Currency Selection -->
+    <div class="card">
+      <div class="input-group">
+        <label for="currency-select">Currency</label>
+        <select id="currency-select" onchange="updateCurrency()" style="width: 100%; padding: 12px 16px; border: 1px solid #e0e0e0; border-radius: 8px; background: var(--ios-gray); font-size: 16px; font-weight: 500;">
+          <option value="USD">🇺🇸 USD - US Dollar</option>
+          <option value="KRW">🇰🇷 KRW - Korean Won</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tab Navigation -->
+    <div class="tab-nav">
+      <button class="tab-button active" onclick="switchTab('split')" id="tab-split">
+        <span id="tab-split-text">Bill Split Calculator</span>
+      </button>
+      <button class="tab-button" onclick="switchTab('percentage')" id="tab-percentage">
+        <span id="tab-percentage-text">Percentage Calculator</span>
+      </button>
+    </div>
+
+    <!-- Percentage Calculator Tab -->
+    <div id="percentage-tab" class="tab-content">
+      <!-- Tax and Tip Settings -->
+      <div class="card">
+        <h2 id="percentage-settings-title">Tax & Tip Settings</h2>
+        
+        <!-- Total Bill Amount -->
+        <div class="input-group" style="margin-bottom: 16px;">
+          <label for="total-bill"><span id="total-bill-label">Total Bill Amount (Optional)</span></label>
+          <div class="relative">
+            <input type="number" id="total-bill" placeholder="0" step="0.01" min="0" oninput="updateCalculations()" style="width: 100%; padding: 12px 16px; padding-left: 32px; border: 1px solid #e0e0e0; border-radius: 8px; background: var(--ios-gray); font-size: 16px; font-weight: 500; box-sizing: border-box;">
+            <span id="total-bill-prefix" style="position: absolute; left: 12px; top: 40px; color: var(--ios-light-gray); font-size: 16px;">$</span>
+          </div>
+        </div>
+        
+        <div class="settings-grid">
+          <div class="input-group">
+            <label for="tax-rate"><span id="tax-label">Tax (%)</span></label>
+            <input type="number" id="tax-rate" placeholder="0.0" step="0.01" min="0" max="100" value="0.0" oninput="updateCalculations()">
+            <span class="input-suffix">%</span>
+          </div>
+          <div class="input-group">
+            <label for="tip-rate"><span id="tip-label">Tip (%)</span></label>
+            <input type="number" id="tip-rate" placeholder="0.0" step="0.01" min="0" max="100" value="0.0" oninput="updateCalculations()">
+            <span class="input-suffix">%</span>
+          </div>
+        </div>
+      </div>
+
+    <!-- People List -->
+    <div id="people-list">
+      <!-- People cards will be inserted here -->
+    </div>
+
+    <!-- Total Summary -->
+    <div id="total-summary" class="total-summary" style="display: none;">
+      <h3 id="summary-title">Total Summary</h3>
+      <div class="summary-row">
+        <span id="total-food-label">Total Food Cost:</span>
+        <span class="amount" id="total-food">$0.00</span>
+      </div>
+      <div class="summary-row">
+        <span id="total-tax-label">Total Tax:</span>
+        <span class="amount" id="total-tax">$0.00</span>
+      </div>
+      <div class="summary-row">
+        <span id="total-tip-label">Total Tip:</span>
+        <span class="amount" id="total-tip">$0.00</span>
+      </div>
+      <div class="summary-row">
+        <span id="grand-total-label">Grand Total:</span>
+        <span class="amount" id="grand-total">$0.00</span>
+      </div>
+    </div>
+
+      <!-- Empty State -->
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">➕</div>
+        <h3 id="empty-title">No people added yet</h3>
+        <p id="empty-desc">Add people to start calculating the bill split</p>
+      </div>
+    </div>
+
+    <!-- Bill Split Calculator Tab -->
+    <div id="split-tab" class="tab-content active">
+      <div class="split-calculator">
+        <!-- Total Amount Section -->
+        <div class="total-amount-section">
+          <h3 id="split-total-title">Total Bill Amount</h3>
+          <div class="amount-input-group">
+            <input type="number" id="split-total-amount" placeholder="0.00" step="0.01" min="0" oninput="updateSplitCalculations()">
+            <span class="currency-symbol" style="position: abolute; top: 30px;" id="split-currency-symbol">$</span>
+          </div>
+        </div>
+
+        <!-- Split People List -->
+        <div id="split-people-list">
+          <!-- Split people cards will be inserted here -->
+        </div>
+
+        <!-- Split Summary -->
+        <div id="split-summary" class="split-summary" style="display: none;">
+          <h3 id="split-summary-title">Summary</h3>
+          <div class="split-summary-row">
+            <span id="split-total-food-label">Total Individual Orders:</span>
+            <span class="amount" id="split-total-food">$0.00</span>
+          </div>
+          <div class="split-summary-row">
+            <span id="split-total-bill-label">Total Bill:</span>
+            <span class="amount" id="split-total-bill">$0.00</span>
+          </div>
+          <div class="split-summary-row">
+            <span id="split-difference-label">Difference:</span>
+            <span class="amount" id="split-difference">$0.00</span>
+          </div>
+        </div>
+
+        <!-- Split Empty State -->
+        <div id="split-empty-state" class="empty-state">
+          <div class="empty-icon">👥</div>
+          <h3 id="split-empty-title">No people added yet</h3>
+          <p id="split-empty-desc">Add people and their order amounts to calculate the split</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Fixed Bottom Button -->
+  <div class="bottom-actions">
+    <button class="add-person-btn" onclick="addPersonToCurrentTab()" id="main-add-button">
+      ➕ <span id="add-person-text">Add Person</span>
+    </button>
+  </div>
+</div>
+
+<script>
+let people = [];
+let personIdCounter = 1;
+let currentCurrency = 'USD';
+let currentTab = 'percentage';
+
+// Split calculator data
+let splitPeople = [];
+let splitPersonIdCounter = 1;
+
+const avatarColors = ['avatar-blue', 'avatar-green', 'avatar-purple', 'avatar-orange', 'avatar-pink', 'avatar-indigo'];
+
+// Language and currency configurations
+const languages = {
+  USD: {
+    currency: 'USD',
+    locale: 'en-US',
+    symbol: '$',
+    labels: {
+      header: 'Bill Calculator',
+      clearAll: 'Clear All',
+      settings: 'Currency & Settings',
+      currency: 'Currency',
+      totalBillAmount: 'Total Bill Amount',
+      tax: 'Tax (%)',
+      tip: 'Tip (%)',
+      tabPercentage: 'Percentage Calculator',
+      tabSplit: 'Bill Split Calculator',
+      percentageSettingsTitle: 'Tax & Tip Settings',
+      summaryTitle: 'Total Summary',
+      totalFood: 'Total Food Cost:',
+      totalTax: 'Total Tax:',
+      totalTip: 'Total Tip:',
+      grandTotal: 'Grand Total:',
+      emptyTitle: 'No people added yet',
+      emptyDesc: 'Add people to start calculating the bill split',
+      addPerson: 'Add Person',
+      enterName: 'Enter name',
+      foodAmount: 'Food Amount',
+      foodCost: 'Food Amount:',
+      taxAmount: 'Tax',
+      tipAmount: 'Tip',
+      totalAmount: 'Total Amount:',
+      // Split calculator labels
+      splitTotalTitle: 'Total Bill Amount',
+      splitSummaryTitle: 'Summary',
+      splitTotalFoodLabel: 'Total Individual Orders:',
+      splitTotalBillLabel: 'Total Bill:',
+      splitDifferenceLabel: 'Difference:',
+      splitEmptyTitle: 'No people added yet',
+      splitEmptyDesc: 'Add people and their order amounts to calculate the split',
+      orderAmount: 'Order Amount',
+      finalAmount: 'Final Amount:'
+    }
+  },
+  KRW: {
+    currency: 'KRW',
+    locale: 'ko-KR',
+    symbol: '₩',
+    labels: {
+      header: '계산기',
+      clearAll: '전체 삭제',
+      settings: '통화 & 설정',
+      currency: '통화',
+      totalBillAmount: '전체 계산서 금액',
+      tax: '세금 (%)',
+      tip: '팁 (%)',
+      tabPercentage: '퍼센트 계산기',
+      tabSplit: '비율 분할 계산기',
+      percentageSettingsTitle: '세금 & 팁 설정',
+      summaryTitle: '전체 요약',
+      totalFood: '총 음식비:',
+      totalTax: '총 세금:',
+      totalTip: '총 팁:',
+      grandTotal: '총합계:',
+      emptyTitle: '아직 추가된 사람이 없습니다',
+      emptyDesc: '사람을 추가해서 계산을 시작하세요',
+      addPerson: '사람 추가',
+      enterName: '이름 입력',
+      foodAmount: '음식 금액',
+      foodCost: '음식비:',
+      taxAmount: '세금',
+      tipAmount: '팁',
+      totalAmount: '총 금액:',
+      // Split calculator labels
+      splitTotalTitle: '전체 계산서 금액',
+      splitSummaryTitle: '요약',
+      splitTotalFoodLabel: '개별 주문 총액:',
+      splitTotalBillLabel: '전체 계산서:',
+      splitDifferenceLabel: '차이:',
+      splitEmptyTitle: '아직 추가된 사람이 없습니다',
+      splitEmptyDesc: '사람과 주문 금액을 추가해서 분할 계산을 시작하세요',
+      orderAmount: '주문 금액',
+      finalAmount: '최종 금액:'
+    }
+  }
+};
+
+function formatCurrency(amount) {
+  const config = languages[currentCurrency];
+  return new Intl.NumberFormat(config.locale, {
+    style: 'currency',
+    currency: config.currency,
+  }).format(amount || 0);
+}
+
+function updateCurrency() {
+  currentCurrency = document.getElementById('currency-select').value;
+  updateLanguageLabels();
+  updateCalculations();
+}
+
+function updateLanguageLabels() {
+  const config = languages[currentCurrency];
+  
+  // Update header
+  document.querySelector('.header h1').textContent = config.labels.header;
+  document.querySelector('.clear-btn').innerHTML = `🗑️ ${config.labels.clearAll}`;
+  
+  // Update settings section
+  document.querySelector('.card h2').textContent = config.labels.settings;
+  document.querySelector('label[for="currency-select"]').textContent = config.labels.currency;
+  document.getElementById('total-bill-label').textContent = config.labels.totalBillAmount;
+  document.getElementById('total-bill-prefix').textContent = config.symbol;
+  document.getElementById('tax-label').textContent = config.labels.tax;
+  document.getElementById('tip-label').textContent = config.labels.tip;
+  
+  // Update summary section
+  document.getElementById('summary-title').textContent = config.labels.summaryTitle;
+  document.getElementById('total-food-label').textContent = config.labels.totalFood;
+  document.getElementById('total-tax-label').textContent = config.labels.totalTax;
+  document.getElementById('total-tip-label').textContent = config.labels.totalTip;
+  document.getElementById('grand-total-label').textContent = config.labels.grandTotal;
+  
+  // Update empty state
+  document.getElementById('empty-title').textContent = config.labels.emptyTitle;
+  document.getElementById('empty-desc').textContent = config.labels.emptyDesc;
+  
+  // Update add person button
+  document.getElementById('add-person-text').textContent = config.labels.addPerson;
+  
+  // Update tab labels
+  document.getElementById('tab-percentage-text').textContent = config.labels.tabPercentage;
+  document.getElementById('tab-split-text').textContent = config.labels.tabSplit;
+  
+  // Update percentage calculator labels
+  document.getElementById('percentage-settings-title').textContent = config.labels.percentageSettingsTitle;
+  
+  // Update split calculator labels
+  if (document.getElementById('split-total-title')) {
+    document.getElementById('split-total-title').textContent = config.labels.splitTotalTitle;
+    document.getElementById('split-currency-symbol').textContent = config.symbol;
+    document.getElementById('split-summary-title').textContent = config.labels.splitSummaryTitle;
+    document.getElementById('split-total-food-label').textContent = config.labels.splitTotalFoodLabel;
+    document.getElementById('split-total-bill-label').textContent = config.labels.splitTotalBillLabel;
+    document.getElementById('split-difference-label').textContent = config.labels.splitDifferenceLabel;
+    document.getElementById('split-empty-title').textContent = config.labels.splitEmptyTitle;
+    document.getElementById('split-empty-desc').textContent = config.labels.splitEmptyDesc;
+  }
+}
+
+// Tab switching functionality
+function switchTab(tabName) {
+  currentTab = tabName;
+  
+  // Update tab buttons
+  document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+  document.getElementById(`tab-${tabName}`).classList.add('active');
+  
+  // Update tab contents
+  document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+  document.getElementById(`${tabName}-tab`).classList.add('active');
+}
+
+// Add person to current tab
+function addPersonToCurrentTab() {
+  if (currentTab === 'percentage') {
+    addPerson();
+  } else {
+    addSplitPerson();
+  }
+}
+
+function calculatePersonTotal(foodCost, taxRate, tipRate, totalBillAmount) {
+  const food = parseFloat(foodCost) || 0;
+  const tax = parseFloat(taxRate) || 0;
+  const tip = parseFloat(tipRate) || 0;
+  const totalBill = parseFloat(totalBillAmount) || 0;
+  
+  // Calculate total food cost from all people
+  const totalFoodCost = people.reduce((sum, person) => sum + (parseFloat(person.foodCost) || 0), 0);
+  
+  let taxAmount, tipAmount;
+  
+  if (totalBill > 0 && totalFoodCost > 0) {
+    // Proportional calculation based on total bill
+    const proportion = food / totalFoodCost;
+    const totalTaxFromBill = (totalBill * tax) / (100 + tax + tip);
+    const totalTipFromBill = (totalBill * tip) / (100 + tax + tip);
+    
+    taxAmount = totalTaxFromBill * proportion;
+    tipAmount = totalTipFromBill * proportion;
+  } else {
+    // Standard percentage calculation
+    taxAmount = (food * tax) / 100;
+    tipAmount = (food * tip) / 100;
+  }
+  
+  const totalAmount = food + taxAmount + tipAmount;
+
+  return {
+    foodCost: food,
+    taxAmount,
+    tipAmount,
+    totalAmount,
+  };
+}
+
+function calculateTotalSummary() {
+  const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+  const tipRate = parseFloat(document.getElementById('tip-rate').value) || 0;
+  const totalBillAmount = parseFloat(document.getElementById('total-bill').value) || 0;
+  
+  const totalFoodCost = people.reduce((sum, person) => sum + (parseFloat(person.foodCost) || 0), 0);
+  
+  let totalTax, totalTip, grandTotal;
+  
+  if (totalBillAmount > 0) {
+    // Use total bill amount for calculation
+    const baseBill = (totalBillAmount * 100) / (100 + taxRate + tipRate);
+    totalTax = (baseBill * taxRate) / 100;
+    totalTip = (baseBill * tipRate) / 100;
+    grandTotal = totalBillAmount;
+  } else {
+    // Standard calculation
+    totalTax = (totalFoodCost * taxRate) / 100;
+    totalTip = (totalFoodCost * tipRate) / 100;
+    grandTotal = totalFoodCost + totalTax + totalTip;
+  }
+
+  return {
+    totalFoodCost: totalBillAmount > 0 ? (totalBillAmount * 100) / (100 + taxRate + tipRate) : totalFoodCost,
+    totalTax,
+    totalTip,
+    grandTotal,
+  };
+}
+
+function addPerson() {
+  const person = {
+    id: personIdCounter++,
+    name: '',
+    foodCost: 0,
+  };
+  
+  people.push(person);
+  renderPeople();
+  updateCalculations();
+}
+
+function removePerson(id) {
+  people = people.filter(person => person.id !== id);
+  renderPeople();
+  updateCalculations();
+}
+
+function updatePerson(id, field, value) {
+  const person = people.find(p => p.id === id);
+  if (person) {
+    person[field] = value;
+    updateCalculationsOnly();
+  }
+}
+
+function renderPeople() {
+  const peopleList = document.getElementById('people-list');
+  const emptyState = document.getElementById('empty-state');
+  const totalSummary = document.getElementById('total-summary');
+  const config = languages[currentCurrency];
+  
+  if (people.length === 0) {
+    peopleList.innerHTML = '';
+    emptyState.style.display = 'block';
+    totalSummary.style.display = 'none';
+    return;
+  }
+  
+  emptyState.style.display = 'none';
+  totalSummary.style.display = 'block';
+  
+  peopleList.innerHTML = people.map((person, index) => {
+    const avatarColor = avatarColors[index % avatarColors.length];
+    const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+    const tipRate = parseFloat(document.getElementById('tip-rate').value) || 0;
+    const totalBillAmount = parseFloat(document.getElementById('total-bill').value) || 0;
+    const calculation = calculatePersonTotal(person.foodCost, taxRate, tipRate, totalBillAmount);
+    
+    return `
+      <div class="person-card" data-person-id="${person.id}">
+        <div class="person-header">
+          <div class="person-info">
+            <div class="avatar ${avatarColor}">👤</div>
+            <input 
+              type="text" 
+              class="name-input" 
+              placeholder="${config.labels.enterName}" 
+              value="${person.name}" 
+              oninput="updatePerson(${person.id}, 'name', this.value)"
+            >
+          </div>
+          <button class="remove-btn" onclick="removePerson(${person.id})">❌</button>
+        </div>
+        
+        <div class="food-input-group">
+          <label>${config.labels.foodAmount}</label>
+          <input 
+            type="number" 
+            placeholder="0" 
+            step="0.01" 
+            min="0" 
+            value="${person.foodCost || ''}" 
+            oninput="updatePerson(${person.id}, 'foodCost', this.value)"
+          >
+          <span class="input-prefix">${config.symbol}</span>
+        </div>
+        
+        <div class="calculation-summary">
+          <div class="calc-row">
+            <span>${config.labels.foodCost}</span>
+            <span class="amount food-cost-amount">${formatCurrency(calculation.foodCost)}</span>
+          </div>
+          <div class="calc-row">
+            <span>${config.labels.taxAmount} (${taxRate}%):</span>
+            <span class="amount tax-amount">${formatCurrency(calculation.taxAmount)}</span>
+          </div>
+          <div class="calc-row">
+            <span>${config.labels.tipAmount} (${tipRate}%):</span>
+            <span class="amount tip-amount">${formatCurrency(calculation.tipAmount)}</span>
+          </div>
+          <div class="calc-row total">
+            <span>${config.labels.totalAmount}</span>
+            <span class="amount total-amount">${formatCurrency(calculation.totalAmount)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateCalculations() {
+  renderPeople();
+  updateCalculationsOnly();
+}
+
+function updateCalculationsOnly() {
+  // Update individual person calculations without re-rendering
+  const taxRate = parseFloat(document.getElementById('tax-rate').value) || 0;
+  const tipRate = parseFloat(document.getElementById('tip-rate').value) || 0;
+  const totalBillAmount = parseFloat(document.getElementById('total-bill').value) || 0;
+  
+  people.forEach(person => {
+    const calculation = calculatePersonTotal(person.foodCost, taxRate, tipRate, totalBillAmount);
+    const personCard = document.querySelector(`[data-person-id="${person.id}"]`);
+    if (personCard) {
+      const foodCostElement = personCard.querySelector('.food-cost-amount');
+      const taxAmountElement = personCard.querySelector('.tax-amount');
+      const tipAmountElement = personCard.querySelector('.tip-amount');
+      const totalAmountElement = personCard.querySelector('.total-amount');
+      
+      if (foodCostElement) foodCostElement.textContent = formatCurrency(calculation.foodCost);
+      if (taxAmountElement) taxAmountElement.textContent = formatCurrency(calculation.taxAmount);
+      if (tipAmountElement) tipAmountElement.textContent = formatCurrency(calculation.tipAmount);
+      if (totalAmountElement) totalAmountElement.textContent = formatCurrency(calculation.totalAmount);
+    }
+  });
+  
+  if (people.length > 0) {
+    const summary = calculateTotalSummary();
+    
+    document.getElementById('total-food').textContent = formatCurrency(summary.totalFoodCost);
+    document.getElementById('total-tax').textContent = formatCurrency(summary.totalTax);
+    document.getElementById('total-tip').textContent = formatCurrency(summary.totalTip);
+    document.getElementById('grand-total').textContent = formatCurrency(summary.grandTotal);
+  }
+}
+
+function clearAll() {
+  if (currentTab === 'percentage') {
+    people = [];
+    document.getElementById('tax-rate').value = '10.25';
+    document.getElementById('tip-rate').value = '18.0';
+    document.getElementById('total-bill').value = '';
+    renderPeople();
+    updateCalculations();
+  } else {
+    splitPeople = [];
+    document.getElementById('split-total-amount').value = '';
+    renderSplitPeople();
+    updateSplitCalculations();
+  }
+}
+
+// Split Calculator Functions
+function addSplitPerson() {
+  const person = {
+    id: splitPersonIdCounter++,
+    name: '',
+    orderAmount: 0,
+  };
+  
+  splitPeople.push(person);
+  renderSplitPeople();
+  updateSplitCalculations();
+}
+
+function removeSplitPerson(id) {
+  splitPeople = splitPeople.filter(person => person.id !== id);
+  renderSplitPeople();
+  updateSplitCalculations();
+}
+
+function updateSplitPerson(id, field, value) {
+  const person = splitPeople.find(p => p.id === id);
+  if (person) {
+    person[field] = value;
+    updateSplitCalculationsOnly();
+  }
+}
+
+function calculateSplitAmounts() {
+  const totalBillAmount = parseFloat(document.getElementById('split-total-amount').value) || 0;
+  const totalOrderAmount = splitPeople.reduce((sum, person) => sum + (parseFloat(person.orderAmount) || 0), 0);
+  
+  if (totalBillAmount <= 0 || totalOrderAmount <= 0) {
+    return splitPeople.map(person => ({
+      ...person,
+      finalAmount: parseFloat(person.orderAmount) || 0
+    }));
+  }
+  
+  return splitPeople.map(person => {
+    const orderAmount = parseFloat(person.orderAmount) || 0;
+    const proportion = orderAmount / totalOrderAmount;
+    const finalAmount = totalBillAmount * proportion;
+    
+    return {
+      ...person,
+      finalAmount
+    };
+  });
+}
+
+function renderSplitPeople() {
+  const splitPeopleList = document.getElementById('split-people-list');
+  const splitEmptyState = document.getElementById('split-empty-state');
+  const splitSummary = document.getElementById('split-summary');
+  const config = languages[currentCurrency];
+  
+  if (splitPeople.length === 0) {
+    splitPeopleList.innerHTML = '';
+    splitEmptyState.style.display = 'block';
+    splitSummary.style.display = 'none';
+    return;
+  }
+  
+  splitEmptyState.style.display = 'none';
+  splitSummary.style.display = 'block';
+  
+  const calculatedPeople = calculateSplitAmounts();
+  
+  splitPeopleList.innerHTML = calculatedPeople.map((person, index) => {
+    const avatarColor = avatarColors[index % avatarColors.length];
+    
+    return `
+      <div class="split-person-card" data-person-id="${person.id}">
+        <div class="split-person-header">
+          <div class="avatar ${avatarColor}">👤</div>
+          <input 
+            type="text" 
+            class="name-input" 
+            placeholder="${config.labels.enterName}" 
+            value="${person.name}" 
+            oninput="updateSplitPerson(${person.id}, 'name', this.value)"
+            style="flex: 1; border: none; background: transparent; font-size: 16px; font-weight: 500; padding: 0; outline: none;"
+          >
+          <button 
+            class="remove-btn" 
+            onclick="removeSplitPerson(${person.id})"
+            style="background: none; border: none; color: var(--ios-red); padding: 8px; cursor: pointer; border-radius: 6px;"
+          >❌</button>
+        </div>
+        
+        <div class="split-person-inputs">
+          <div class="input-group">
+            <label style="display: block; font-size: 14px; font-weight: 500; color: var(--ios-dark-gray); margin-bottom: 8px;">
+              ${config.labels.orderAmount}
+            </label>
+            <div style="position: relative;">
+              <input 
+                type="number" 
+                placeholder="0" 
+                step="0.01" 
+                min="0" 
+                value="${person.orderAmount || ''}" 
+                oninput="updateSplitPerson(${person.id}, 'orderAmount', this.value)"
+                style="width: 100%; padding: 12px 16px; padding-left: 32px; border: 1px solid #e0e0e0; border-radius: 8px; background: var(--ios-gray); font-size: 16px; font-weight: 500; box-sizing: border-box;"
+              >
+              <span style="position: absolute; left: 12px; top: 12px; color: var(--ios-light-gray); font-size: 16px;">${config.symbol}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="split-result">
+          <div style="font-size: 14px; color: var(--ios-dark-gray); margin-bottom: 4px;">
+            ${config.labels.finalAmount}
+          </div>
+          <div class="final-amount">${formatCurrency(person.finalAmount)}</div>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function updateSplitCalculations() {
+  renderSplitPeople();
+  updateSplitCalculationsOnly();
+}
+
+function updateSplitCalculationsOnly() {
+  const totalBillAmount = parseFloat(document.getElementById('split-total-amount').value) || 0;
+  const totalOrderAmount = splitPeople.reduce((sum, person) => sum + (parseFloat(person.orderAmount) || 0), 0);
+  const difference = totalBillAmount - totalOrderAmount;
+  
+  // Update individual final amounts without re-rendering
+  const calculatedPeople = calculateSplitAmounts();
+  calculatedPeople.forEach((person, index) => {
+    const finalAmountElement = document.querySelector(`[data-person-id="${person.id}"] .final-amount`);
+    if (finalAmountElement) {
+      finalAmountElement.textContent = formatCurrency(person.finalAmount);
+    }
+  });
+  
+  if (splitPeople.length > 0) {
+    document.getElementById('split-total-food').textContent = formatCurrency(totalOrderAmount);
+    document.getElementById('split-total-bill').textContent = formatCurrency(totalBillAmount);
+    document.getElementById('split-difference').textContent = formatCurrency(difference);
+  }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  updateLanguageLabels();
+  renderPeople();
+  updateCalculations();
+  renderSplitPeople();
+  updateSplitCalculations();
+});
+</script>

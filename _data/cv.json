@@ -1,97 +1,66 @@
 {
   "basics": {
-    "name": "Your Sidebar Name",
-    "email": "none@example.org",
+    "name": "Giyeol Kim",
+    "email": "gpk5233@psu.edu",
     "phone": "",
-    "website": "https://academicpages.github.io",
-    "summary": "Currently employed at Red Brick University. Short biography for the left-hand sidebar",
+    "website": "https://weaver9651.github.io",
+    "summary": "Currently employed at Pennsylvania State University. Ph.D. student in IST at Penn State, interested in software and systems security.",
     "location": {
       "address": "",
       "postalCode": "",
-      "city": "Earth",
+      "city": "",
       "countryCode": "US",
       "region": ""
     },
     "profiles": [
       {
-        "network": "Google Scholar",
-        "username": "",
-        "url": "https://scholar.google.com/citations?user=PS_CX0AAAAAJ"
-      },
-      {
-        "network": "ORCID",
-        "username": "",
-        "url": "http://orcid.org/yourorcidurl"
-      },
-      {
         "network": "GitHub",
-        "username": "academicpages",
-        "url": "https://github.com/academicpages"
+        "username": "weaver9651",
+        "url": "https://github.com/weaver9651"
       }
     ]
   },
   "work": [],
-  "education": [
-    {
-      "institution": "GitHub University",
-      "area": "Ph.D in Version Control Theory",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2018",
-      "gpa": null,
-      "courses": []
-    },
-    {
-      "institution": "GitHub University",
-      "area": "M.S. in Jekyll",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2014",
-      "gpa": null,
-      "courses": []
-    },
-    {
-      "institution": "GitHub University",
-      "area": "B.S. in GitHub",
-      "studyType": "",
-      "startDate": "",
-      "endDate": "2012",
-      "gpa": null,
-      "courses": []
-    }
-  ],
+  "education": [],
   "skills": [],
   "languages": [],
   "interests": [],
   "references": [],
   "publications": [
     {
-      "name": "Paper Title Number 1",
-      "publisher": "Journal 1",
-      "releaseDate": "2009-10-01",
-      "website": "http://academicpages.github.io/files/paper1.pdf",
-      "summary": "This paper is about the number 1. The number 2 is left for future work."
+      "name": "VM-CFI: Control-Flow Integrity for Virtual Machine Kernel Using Intel PT",
+      "publisher": "International Conference on Computational Science and Its Applications (ICCSA)",
+      "releaseDate": "2018-01-01",
+      "website": "https://link.springer.com/chapter/10.1007/978-3-319-95174-4_10",
+      "summary": ""
     },
     {
-      "name": "Paper Title Number 2",
-      "publisher": "Journal 1",
-      "releaseDate": "2010-10-01",
-      "website": "http://academicpages.github.io/files/paper2.pdf",
-      "summary": "This paper is about the number 2. The number 3 is left for future work."
+      "name": "uXOM: Efficient eXecute-Only Memory on ARM Cortex-M",
+      "publisher": "28th USENIX Security Symposium (USENIX Security 19)",
+      "releaseDate": "2019-01-01",
+      "website": "https://www.usenix.org/conference/usenixsecurity19/presentation/kwon",
+      "summary": ""
     },
     {
-      "name": "Paper Title Number 3",
-      "publisher": "Journal 1",
-      "releaseDate": "2015-10-01",
-      "website": "http://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about the number 3. The number 4 is left for future work."
+      "name": "Hawkware: Network intrusion detection based on behavior analysis with ANNs on an IoT device",
+      "publisher": "57th ACM/IEEE Design Automation Conference (DAC)",
+      "releaseDate": "2020-01-01",
+      "website": "https://ieeexplore.ieee.org/abstract/document/9218559",
+      "summary": ""
     },
     {
-      "name": "Paper Title Number 4",
-      "publisher": "GitHub Journal of Bugs",
-      "releaseDate": "2024-02-17",
-      "website": "http://academicpages.github.io/files/paper3.pdf",
-      "summary": "This paper is about fixing template issue #693."
+      "name": "LTA: Control-Driven UAV Testing and Bug Localization with Flight Record Decomposition",
+      "publisher": "Proceedings of the 22nd ACM Conference on Embedded Networked Sensor Systems (SenSys)",
+      "releaseDate": "2024-01-01",
+      "website": "https://dl.acm.org/doi/abs/10.1145/3666025.3699350",
+      "summary": ""
+    },
+    {
+      "name": "Differential Fuzzing for Data Distribution Service Programs with Dynamic Configuration",
+      "publisher": "Proceedings of the 39th IEEE/ACM International Conference on Automated Software Engineering (ASE)",
+      "releaseDate": "2024-10-27",
+      "website": "https://dl.acm.org/doi/abs/10.1145/3691620.3695073",
+      "summary": ""
     }
   ],
   "presentations": [

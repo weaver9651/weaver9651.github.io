@@ -8,8 +8,8 @@
 #      Markdown formatted page while the second is generated using JSON.
 
 main:
-  - title: "bill-calculator"
-    url: /bill/
+  # - title: "bill-calculator"
+  #   url: /bill/
   # - title: "Publications"
   #   url: /publications/
 
